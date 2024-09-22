@@ -5,8 +5,8 @@ from typing import List, Dict, Generator, Tuple
 from collections import deque
 
 try:
-    from src.models import get_model_api
-    from src.utils import get_turn_title, get_final_answer, get_xml_tag_value
+    from models import get_model_api
+    from utils import get_turn_title, get_final_answer, get_xml_tag_value
 except (ModuleNotFoundError, ImportError):
     from models import get_model_api
     from utils import get_turn_title, get_final_answer, get_xml_tag_value
@@ -406,7 +406,7 @@ def manage_conversation(model: str,
         if turn_count % num_turns == 0:
             # periodically pause for continuation, never have to fully terminate
             if cli_mode:
-                user_continue = input("\nContinue? (y/n): ").lower() == 'y'
+                user_continue = True #input("\nContinue? (y/n): ").lower() == 'y'
                 if not user_continue:
                     break
             else:
@@ -473,15 +473,15 @@ Remember to compensate for your flaws:
     num_turns = int(os.getenv('NUM_TURNS', '10'))  # Number of turns before pausing for continuation
     num_turns_final_mod = num_turns - 1  # Not required, just an OK value. Could be randomized.
 
-    show_next = False
-    show_cot = False
-    verbose = False
+    show_next = True
+    show_cot = True
+    verbose = True
 
     # model = "claude-3-5-sonnet-20240620"
     model = "anthropic:claude-3-haiku-20240307"
 
     temperature = 0.3
-    max_tokens = 4096
+    max_tokens = 32000
 
     return (model, system_prompt,
             initial_prompt,
@@ -495,6 +495,6 @@ Remember to compensate for your flaws:
 
 
 if __name__ == '__main__':
-    from src.cli import go_cli
+    from cli import go_cli
 
     go_cli()

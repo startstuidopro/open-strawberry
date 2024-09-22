@@ -2,7 +2,7 @@ import argparse
 import os
 import time
 
-from src.open_strawberry import get_defaults, manage_conversation
+from open_strawberry import get_defaults, manage_conversation
 
 
 def parse_arguments(model, system_prompt, next_prompts, num_turns, show_next, final_prompt,
